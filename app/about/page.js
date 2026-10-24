@@ -268,6 +268,33 @@ export default function AboutPage() {
             )}
           </div>
 
+          {/* Short titled lists under Experience (education, awards…) */}
+          {(siteConfig.cvLists ?? []).map(({ label, items }) => (
+            <div key={label} style={{ marginTop: 40 }}>
+              <p style={{
+                fontFamily: "var(--font-syne), sans-serif", fontSize: "0.625rem", letterSpacing: "0.1em",
+                textTransform: "uppercase", color: "#fff", marginBottom: 8,
+              }}>
+                {label}
+              </p>
+              <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                {items.map(({ title, place, period }, i, arr) => (
+                  <li key={`${title}-${place}-${period}`} style={{
+                    display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 16,
+                    padding: "12px 0",
+                    borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  }}>
+                    <span>
+                      <span style={{ display: "block", fontFamily: "var(--font-syne), sans-serif", fontSize: "0.875rem", fontWeight: 600, color: "#F0EDE8", letterSpacing: "-0.01em", lineHeight: 1.4 }}>{title}</span>
+                      {place && <span style={{ display: "block", fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", color: "rgba(240,237,232,0.5)", lineHeight: 1.5, marginTop: 2 }}>{place}</span>}
+                    </span>
+                    <span style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.5625rem", color: "rgba(240,237,232,0.42)", letterSpacing: "0.06em", flexShrink: 0 }}>{period}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
           <div style={{ marginTop: 36, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Button href="/contact" variant="primary" size="md">Get in touch →</Button>
             {siteConfig.cvUrl && <Button href={siteConfig.cvUrl} variant="secondary" size="md" download>Download CV</Button>}

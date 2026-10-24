@@ -5,8 +5,8 @@
 // components (home, /about, /contact) don't pull case study content into their
 // bundle.
 //
-// About copy is from sanjadevic.com/about. TODO(Sanja): email and site url are
-// still placeholders.
+// About copy is from sanjadevic.com/about and her 2025 CV
+// (public/Sanja_Devic_CV_2025.pdf). TODO(Sanja): the site url is a placeholder.
 
 export const siteConfig = {
   name: "Sanja Devic",
@@ -17,7 +17,7 @@ export const siteConfig = {
   tagline: "Graphic designer.",
   heroLine: "Graphic designer, artist and lecturer at the Faculty of Arts Niš.",
   bio: "Graphic designer, artist and lecturer at the Faculty of Arts Niš, Serbia, working with clients around the world.",
-  email: "hello@example.com",
+  email: "sanjadevic7@gmail.com", // as on her CV
   // Shown in the footer, on /contact and on the home page.
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/sanja-devic-12318850/" },
@@ -25,9 +25,9 @@ export const siteConfig = {
     { label: "Pinterest", href: "https://www.pinterest.com/sanjadevic/" },
   ],
   // Drop a PDF in public/ and point to it, or set to null to hide the button.
-  cvUrl: null,
+  cvUrl: "/Sanja_Devic_CV_2025.pdf",
 
-  aboutIntro: "I'm a graphic designer, an artist and a lecturer at the Faculty of Arts Niš in Serbia.",
+  aboutIntro: "I'm a graphic designer, an artist and a Professor of Spatial Graphics and Illustration at the Faculty of Arts Niš in Serbia.",
   aboutLocation: "Based in Niš, Serbia. Working with clients worldwide.",
   aboutBio: [
     "Hello, my name is Sanja Devic. I teach basics of graphic design, package design and illustration. I love teaching, as I get to work with young creatives who inspire me very much, and I do feel we are always making progress together.",
@@ -38,39 +38,96 @@ export const siteConfig = {
 
   // Three headline facts under the About hero.
   proof: [
-    { value: "Teaching", label: "Faculty of Arts Niš", sub: "Graphic design · Package design · Illustration" },
-    { value: "Exhibitions", label: "Solo and group shows", sub: "Visual and applied arts" },
-    { value: "Clients", label: "Around the world", sub: "All areas of graphic design" },
+    { value: "Exhibitions", label: "20 solo, 60+ group", sub: "Worldwide" },
+    { value: "Teaching", label: "Faculty of Arts Niš", sub: "Spatial graphics and illustration" },
+    { value: "Awards", label: "Multiple design awards", sub: "Work featured in books and magazines" },
   ],
 
   // Optional highlight cards; set to [] to hide the section.
-  highlights: [],
+  highlights: [
+    { stat: "MA", label: "Graphic Design", body: "M.A. from the Faculty of Fine Arts, Cetinje, University of Montenegro. Bachelor's and Master's in Design from the Faculty of Arts, Niš." },
+    { stat: "Head", label: "Department of Applied Arts", body: "Chief of the Department of Applied Arts at the Faculty of Arts Niš, 2016–2021." },
+    { stat: "Member", label: "ULUPUDS and IxDA Niš", body: "Member of ULUPUDS and the Interaction Design Association Niš." },
+    { stat: "Best", label: "Student of the year", body: "Recognized as the best student by the University of Niš, 2006." },
+  ],
 
   pillars: [
-    { title: "Graphic design", body: "Projects for clients around the world, across all areas of graphic design." },
-    { title: "Teaching", body: "Basics of graphic design, package design and illustration at the Faculty of Arts Niš." },
-    { title: "Art", body: "Solo and group exhibitions in visual and applied arts, and handmade miniature books." },
+    { title: "Graphic design", body: "Branding and visual identity, typography and layout, editorial and print, package and interface design." },
+    { title: "Teaching", body: "Spatial graphics and illustration, curriculum development, student mentorship and lecturing." },
+    { title: "Art", body: "Solo and group exhibitions in visual and applied arts, installations and handmade miniature books." },
   ],
 
   experience: [
     {
       company: "Faculty of Arts Niš",
-      role: "Lecturer",
-      period: "Present",
+      role: "Full Professor of Spatial Graphics and Illustration",
+      period: "2007 – Present",
       meta: "Niš, Serbia",
-      pts: ["Teaches basics of graphic design, package design and illustration."],
+      pts: [
+        "Full Professor since 2026; Associate Professor 2021–2026.",
+        "Assistant Professor (docent) and Chief of the Department of Applied Arts, 2016–2021.",
+        "Associate of Applied Arts, 2007–2016.",
+      ],
       clients: null,
     },
     {
-      company: "Independent practice",
+      company: "Dan Prosser Group",
       role: "Graphic designer",
-      period: "Present",
-      meta: "Clients worldwide",
-      pts: ["Logo, identity, package and print design for clients around the world."],
+      period: "2010 – 2019",
+      meta: "danprosser.com",
+      pts: ["Logo designs and corporate identities for companies founded by Dan Prosser Group, book cover design and website graphics."],
+      clients: "todolee.com · Connecting Points · Accountability Scorecard · executionworks.com · Best Places to Work",
+    },
+    {
+      company: "Publishing house Zograf",
+      role: "Editorial designer",
+      period: "2007 – 2010",
+      meta: "Niš, Serbia",
+      pts: ["Book design: layout, typography and covers, plus magazines and other publications."],
+      clients: null,
+    },
+    {
+      company: "Logic Center",
+      role: "Art Director & Co-Founder",
+      period: "2003 – 2012",
+      meta: "Niš, Serbia",
+      pts: ["Led creative direction, brand vision and visual identity, and drove the agency's business development."],
+      clients: null,
+    },
+    {
+      company: "Elance",
+      role: "Graphic designer",
+      period: "2003 – 2010",
+      meta: "Remote",
+      pts: ["Branding, digital and print design for clients across industries, from concept to execution."],
       clients: null,
     },
   ],
   earlier: null, // e.g. "Earlier: Studio X · Agency Y"
+
+  // Short lists under Experience on /about.
+  cvLists: [
+    {
+      label: "Education",
+      items: [
+        { title: "MA II Degree in Graphic Design", place: "Faculty of Fine Arts Cetinje, Montenegro", period: "2010 – 2013" },
+        { title: "Bachelor and Master of Graphic Design", place: "Faculty of Arts Niš, Serbia", period: "2000 – 2005" },
+        { title: "Department of Textile Design", place: "Art School in Niš, Serbia", period: "1994 – 1998" },
+      ],
+    },
+    {
+      label: "Selected awards",
+      items: [
+        { title: "Certificate of Appreciation", place: "Local Ombudsman of the City of Niš", period: "2022" },
+        { title: "Certificate of Appreciation", place: "Faculty of Arts in Niš", period: "2022" },
+        { title: "Award, Europe Is Here 2021", place: "Interactive installation, King Milan Square, Niš", period: "2021" },
+        { title: "First Prize, Art in Miniature", place: "International competition, Majdanpek, Serbia", period: "2017" },
+        { title: "Two prizes, Cook Up Your Design", place: "Metalac d.o.o.", period: "2017" },
+        { title: "Second place, logo design competition", place: "American Embassy in Podgorica, Montenegro", period: "2013" },
+        { title: "Student of the Year", place: "University of Niš", period: "2006" },
+      ],
+    },
+  ],
 
   // Photo-and-text section on /about; set to null to hide it.
   away: {

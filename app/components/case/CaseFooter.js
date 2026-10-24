@@ -27,6 +27,7 @@ export default function CaseFooter() {
           <ScrambleLink key={label} label={label} href={href} external />
         ))}
         <ScrambleLink label="Email" href={`mailto:${siteConfig.email}`} />
+        {siteConfig.cvUrl && <ScrambleLink label="CV" href={siteConfig.cvUrl} download />}
       </span>
       <ScrambleLink label="Back to top ↑" href="#top" onClick={toTop} />
     </footer>
