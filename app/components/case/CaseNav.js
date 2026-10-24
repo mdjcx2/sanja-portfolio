@@ -10,6 +10,7 @@ import ContactModal from "../ContactModal";
 import { CONTACT_OPEN_EVENT, openContactFromClick } from "../contactModalEvent";
 import styles from "./nav.module.css";
 import ScrambleLink from "./ScrambleLink";
+import Logo from "../Logo";
 
 // The site nav (case pages directly, every other dark page through DarkNav).
 // Desktop is modelled on graceguo.io: links that scramble on hover and a
@@ -90,9 +91,9 @@ export default function CaseNav({ visible = true, onLogoClick, withBottomTabs = 
       <header className={styles.bar} data-on-cover={hasCover && !scrolled && !open} data-menu-open={open} data-hidden={!visible}>
         <span aria-hidden="true" className={styles.scrim} data-on={scrolled} />
         {onLogoClick ? (
-          <button type="button" data-tour="logo" onClick={onLogoClick} className={`${styles.wordmark} ${styles.wordmarkButton}`} aria-label={`${siteConfig.name ?? "Home"}, back to top`}>{siteConfig.wordmark}</button>
+          <button type="button" data-tour="logo" onClick={onLogoClick} className={`${styles.wordmark} ${styles.wordmarkButton}`} aria-label={`${siteConfig.name ?? "Home"}, back to top`}><Logo size={28} /></button>
         ) : (
-          <Link href="/" data-tour="logo" className={styles.wordmark} aria-label={`${siteConfig.name ?? "Home"}, home`}>{siteConfig.wordmark}</Link>
+          <Link href="/" data-tour="logo" className={styles.wordmark} aria-label={`${siteConfig.name ?? "Home"}, home`}><Logo size={28} /></Link>
         )}
 
         <nav aria-label="Main" className={styles.links}>

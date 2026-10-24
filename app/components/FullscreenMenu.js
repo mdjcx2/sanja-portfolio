@@ -123,7 +123,7 @@ export default function FullscreenMenu({ open, onClose, toggleRef, withBottomTab
               );
             })}
           </nav>
-          <p className="dn-menu-footer">{siteConfig.wordmark} · {siteConfig.role}</p>
+          <p className="dn-menu-footer">{siteConfig.name} · {siteConfig.role}</p>
         </div>
       )}
     </>

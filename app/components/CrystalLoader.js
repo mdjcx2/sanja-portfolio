@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "../../data/siteConfig.js";
+import Logo from "./Logo";
 
 const CRYSTAL = {
   freq: 5.0, amp: 0.11, speed: 0.05, fresnel: 1.6,
@@ -294,7 +295,7 @@ export default function CrystalLoader({ onDone }) {
           fontFamily: "var(--font-syne), sans-serif",
           fontSize: "1.15rem", fontWeight: 500, letterSpacing: "-0.01em",
         }}>
-          {siteConfig.wordmark}
+          <Logo size={40} title={siteConfig.name} style={{ color: "rgba(255,255,255,0.92)" }} />
         </span>
         <span className="cl-shimmer-label" style={{
           fontFamily: "var(--font-syne), sans-serif", fontSize: "0.4375rem",

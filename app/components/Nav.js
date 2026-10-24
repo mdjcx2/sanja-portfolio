@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "../../data/siteConfig.js";
+import Logo from "./Logo";
 
 const ACCENTS = [
   { id: "amber",  label: "Amber",  value: "#B8955A", dark: "#C8A870" },
@@ -72,7 +73,7 @@ export default function Nav() {
       <nav className="nav">
         <div className="nav-inner">
           <Link href="/" className="nav-logo">
-            {siteConfig.wordmark}
+            <Logo size={28} title={siteConfig.name} />
           </Link>
 
           <div className="nav-links nav-links-desktop">
