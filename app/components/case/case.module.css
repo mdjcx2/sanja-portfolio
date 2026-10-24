@@ -73,6 +73,12 @@
   }
 }
 
+@media (max-width: 767px) {
+  .cover[data-short-on-phones="true"] {
+    height: 75vw;
+  }
+}
+
 /* Shade under the nav so its light ink reads on bright photos too */
 .cover::before {
   content: "";

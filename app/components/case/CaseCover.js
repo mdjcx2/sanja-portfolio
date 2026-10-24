@@ -7,7 +7,9 @@ import styles from "./case.module.css";
 // position: CSS object-position for the crop (default "center 30%").
 // belowNav: start the image under the nav bar instead of behind it, and on
 // phones show it whole rather than cropped (for product shots, not photos).
-export default function CaseCover({ src, alt = "", width, height, position, belowNav = false }) {
+// shortOnPhones: a wide, short crop on phones instead of a full-height one
+// (for square art with text near its edges).
+export default function CaseCover({ src, alt = "", width, height, position, belowNav = false, shortOnPhones = false }) {
   const img = useRef(null);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function CaseCover({ src, alt = "", width, height, position, belo
   }, [belowNav]);
 
   return (
-    <div className={styles.cover} data-case-cover data-below-nav={belowNav}>
+    <div className={styles.cover} data-case-cover data-below-nav={belowNav} data-short-on-phones={shortOnPhones}>
       <img ref={img} src={src} alt={alt} width={width} height={height} className={styles.coverImg}
         style={position ? { objectPosition: position } : undefined} />
     </div>
