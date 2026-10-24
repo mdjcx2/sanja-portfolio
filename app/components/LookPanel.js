@@ -28,7 +28,8 @@ export const DITHER_PRESETS = [
 ];
 
 const MOODS = [
-  { id: "midnight", name: "Midnight", preset: "Dark",    style: "reference", note: "The original" },
+  { id: "sanja",    name: "Sanja",    preset: "Sanja",   style: "sepia",     note: "The original" },
+  { id: "midnight", name: "Midnight", preset: "Dark",    style: "reference", note: "Dark and quiet" },
   { id: "glacier",  name: "Glacier",  preset: "Crystal", style: "arctic",    note: "Cool and clear" },
   { id: "neon",     name: "Neon",     preset: "Pulsar",  style: "cyberpunk", note: "Loud and fast" },
   { id: "ember",    name: "Ember",    preset: "Storm",   style: "amber",     note: "Warm and restless" },

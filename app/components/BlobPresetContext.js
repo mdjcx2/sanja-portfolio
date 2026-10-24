@@ -9,6 +9,10 @@ const LS_KEY = "dvc-blob-preset";
 // The original site had a dark/invisible blob but cyan nav accent, so "Dark"
 // stores the original blob colors and the original cyan in `accent`.
 export const BLOB_PRESETS = [
+  // Sanja's site look: a Wraith-shaped blob in hot pink/magenta, sepia overlay.
+  // No `accent`, so the nav/UI accent follows colorB (pink).
+  { name: "Sanja",   freq: 0.7,  amp: 0.26, speed: 0.07, fresnel: 8.0,
+    colorA: [0.01, 0.01, 0.03], colorB: [1.00, 0.00, 0.584], colorC: [1.00, 0.00, 0.816] },
   { name: "Dark",    freq: 10.0, amp: 0.07, speed: 0.08, fresnel: 6.0,
     colorA: [0.00, 0.00, 0.00], colorB: [0.00, 0.00, 0.00], colorC: [0.16, 0.16, 0.16],
     accent: [0.00, 0.824, 1.00] }, // original cyan nav accent
@@ -24,8 +28,8 @@ export const BLOB_PRESETS = [
     colorA: [0.01, 0.01, 0.03], colorB: [1.00, 1.00, 1.00], colorC: [0.68, 0.88, 1.00] },
 ];
 
-export const DEFAULT_PRESET = BLOB_PRESETS[0]; // Dark original site look
-export const DEFAULT_OVERLAY = "reference";
+export const DEFAULT_PRESET = BLOB_PRESETS[0]; // Sanja
+export const DEFAULT_OVERLAY = "sepia";
 
 // ── Accent helpers ────────────────────────────────────────────────────────────
 // Uses preset.accent if present (decoupled from blob color), otherwise colorB.
