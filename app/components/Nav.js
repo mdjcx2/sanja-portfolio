@@ -79,7 +79,6 @@ export default function Nav() {
           <div className="nav-links nav-links-desktop">
             <Link href="/about"   className="nav-link">About</Link>
             <Link href="/work"    className="nav-link">Selected Work</Link>
-            <Link href="/process" className="nav-link">Process</Link>
             <Link href="/contact" className="nav-link">Contact</Link>
           </div>
 
@@ -155,7 +154,6 @@ export default function Nav() {
           <Link href="/"        className="nav-drawer-link nav-drawer-home">{siteConfig.wordmark}</Link>
           <Link href="/about"   className="nav-drawer-link">About</Link>
           <Link href="/work"    className="nav-drawer-link">Selected Work</Link>
-          <Link href="/process" className="nav-drawer-link">Process</Link>
           <Link href="/contact" className="nav-drawer-link">Contact</Link>
           <a href={`mailto:${siteConfig.email}`} className="nav-drawer-email">{siteConfig.email}</a>
         </div>
