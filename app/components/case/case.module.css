@@ -930,3 +930,33 @@
   display: flex;
   gap: 24px;
 }
+
+/* ── Gallery ───────────────────────────────────────────── */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: var(--case-media-gap) 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(var(--gallery-cols, 3), minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+.galleryItem {
+  overflow: hidden;
+  border-radius: var(--case-radius);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.galleryItem img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

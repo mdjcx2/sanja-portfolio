@@ -8,6 +8,7 @@ import HotspotImage from "./HotspotImage";
 import ProcessSteps from "./ProcessSteps";
 import ResultsTable from "./ResultsTable";
 import Shortcuts from "./Shortcuts";
+import Gallery from "./Gallery";
 
 function Text({ body }) {
   return (
@@ -41,6 +42,7 @@ export function renderBlock(block, key) {
     case "hotspot": return <HotspotImage key={key} {...block} />;
     case "chips": return <ChipSwitcher key={key} {...block} />;
     case "shortcuts": return <Shortcuts key={key} {...block} />;
+    case "gallery": return <Gallery key={key} {...block} />;
     default:
       if (process.env.NODE_ENV !== "production") throw new Error(`Unknown case study block type "${block.type}"`);
       return null;

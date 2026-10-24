@@ -19,7 +19,9 @@ export default function Reveal({ children, delay = 0, as: Tag = "div", className
           observer.disconnect();
         }
       },
-      { threshold: 0.1 },
+      // Fire once the top edge is 10% up the viewport. A ratio threshold would
+      // never fire for blocks much taller than the screen (e.g. a long gallery).
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" },
     );
     observer.observe(node);
     return () => observer.disconnect();

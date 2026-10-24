@@ -7,6 +7,17 @@
 
 export const projects = [
   {
+    slug: "logo-designs",
+    featured: true,
+    group: "selected",
+    title: "Logo Designs",
+    client: "Clients worldwide",
+    year: "2006 – 2022",
+    summary: "A selection of realized logo designs, created for clients all over the world.",
+    coverImage: "/images/logo-designs/logo-01.jpg",
+    coverGradient: "linear-gradient(155deg, #3a0022 0%, #6b0040 55%, #ff0095 100%)",
+  },
+  {
     slug: "sample-project",
     featured: true,
     group: "selected",
