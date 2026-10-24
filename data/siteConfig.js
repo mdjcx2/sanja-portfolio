@@ -20,6 +20,7 @@ export const siteConfig = {
   email: "hello@example.com",
   // Shown in the footer, on /contact and on the home page.
   socials: [
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/sanja-devic-12318850/" },
     { label: "Instagram", href: "https://www.instagram.com/sanja__devic/" },
     { label: "Pinterest", href: "https://www.pinterest.com/sanjadevic/" },
   ],
