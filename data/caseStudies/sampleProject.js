@@ -49,9 +49,9 @@ export const sampleProject = {
         {
           type: "metrics",
           items: [
-            { value: "00%", label: "Placeholder metric" },
-            { value: "00", label: "Placeholder metric" },
-            { value: "0×", label: "Placeholder metric" },
+            { value: "00%", label: "Placeholder metric one" },
+            { value: "00", label: "Placeholder metric two" },
+            { value: "0×", label: "Placeholder metric three" },
           ],
         },
         { type: "text", body: "Placeholder: where the numbers came from." },
