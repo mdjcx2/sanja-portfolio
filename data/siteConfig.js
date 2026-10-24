@@ -83,9 +83,37 @@ export const siteConfig = {
     stats: [],
   },
 
-  // Name rows in the home "Scale" section.
-  clients: ["Client A", "Client B", "Client C"],
-  employers: ["Faculty of Arts Niš"],
+  // Home page "What I do" section: cards, then labelled name rows. Wording
+  // from her About, Portfolio and Exhibitions pages on sanjadevic.com.
+  // icon: a key of SCALE_ICONS in app/page.js.
+  scale: {
+    title: "What I do",
+    cards: [
+      { icon: "pen", title: "Graphic design", desc: "Projects for clients around the world, in all areas of graphic design." },
+      { icon: "package", title: "Logo, package & UI design", desc: "Logos, packaging and interfaces. Selected work includes Metalac cookware." },
+      { icon: "teach", title: "Teaching", desc: "Basics of graphic design, package design and illustration at the Faculty of Arts Niš." },
+      { icon: "frame", title: "Exhibitions & workshops", desc: "Solo and group exhibitions in visual and applied arts, workshops and handmade miniature books." },
+    ],
+    rows: [
+      {
+        label: "Exhibitions and workshops",
+        items: [
+          "Posterra Project",
+          "Catalyst of Perception: Luminescent Duality",
+          "Disorderly Dimensions: A Chaotic Journey",
+          "Fluid Workshop",
+          "Block – Typographic Heritage in the Assembly System",
+          "Miniature Books",
+          "Exhibition Mix",
+          "Chapter Zero",
+        ],
+      },
+      { label: "Teaching and press", items: ["Faculty of Arts Niš", "Aperto Magazine"] },
+    ],
+  },
+
+  // Home page contact section.
+  contactLine: "For projects in all areas of graphic design, for clients around the world.",
 
   skills: ["Graphic design", "Logo design", "Package design", "Illustration", "Teaching"],
 };

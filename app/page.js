@@ -14,7 +14,7 @@ import ProjectCard from "./components/ProjectCard";
 import ScrambleTitle from "./components/ScrambleTitle";
 import { useTheme } from "./components/ThemeProvider";
 import { useBlobPreset } from "./components/BlobPresetContext";
-import { ArrowDown, ArrowRight } from "@phosphor-icons/react";
+import { ArrowDown, ArrowRight, PenNib, Package, ChalkboardTeacher, FrameCorners } from "@phosphor-icons/react";
 import CaseFooter from "./components/case/CaseFooter";
 
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -50,7 +50,10 @@ const INITIAL_SECTIONS = blobStates.map(s => ({
   colorC: [...s.colorC],
 }));
 
-const SECTION_NAMES = ["Hero", "Work", "Scale", "Contact"];
+// Icons for siteConfig.scale.cards, by key.
+const SCALE_ICONS = { pen: PenNib, package: Package, teach: ChalkboardTeacher, frame: FrameCorners };
+
+const SECTION_NAMES = ["Hero", "Work", "What I do", "Contact"];
 const SECTION_IDS   = ["hero", "work", "scale", "contact"];
 // Index of the last section (Contact); the dots, arrow and fade-ins key off it.
 const LAST = SECTION_IDS.length - 1;
@@ -1097,63 +1100,16 @@ export default function DarkPage() {
               letterSpacing: "-0.03em", color: C.text, lineHeight: 1.1, margin: 0,
               fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)",
             }}>
-              Systems &amp; Scale
+              {siteConfig.scale.title}
             </h2>
           </div>
 
-          {/* Capability cards 3 + 2 grid */}
+          {/* Capability cards */}
           <div className="dp-cap-grid" style={{
             opacity: loadedSections.has(2) ? 1 : 0,
             transition: "opacity 0.4s ease 0.08s",
           }}>
-            {[
-              {
-                title: "Cross-functional",
-                desc: "Working alongside PM, engineering, data, delivery, and customer success.",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="18" cy="5" r="3"/>
-                    <circle cx="6" cy="12" r="3"/>
-                    <circle cx="18" cy="19" r="3"/>
-                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                  </svg>
-                ),
-              },
-              {
-                title: "Design Systems",
-                desc: "Component libraries and token structures that scale with the product.",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                    <polyline points="2 17 12 22 22 17"/>
-                    <polyline points="2 12 12 17 22 12"/>
-                  </svg>
-                ),
-              },
-              {
-                title: "Accessibility",
-                desc: "WCAG 2.1 AA as a design input, not an audit: keyboard-first, certified across enterprise video.",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <circle cx="12" cy="7.5" r="1.25"/>
-                    <path d="M7.5 10.5l4.5 1 4.5-1"/>
-                    <path d="M12 11.5v3l-2.5 4"/>
-                    <path d="M12 14.5l2.5 4"/>
-                  </svg>
-                ),
-              },
-              {
-                title: "AI-assisted Workflows",
-                desc: "Using AI for UX research, rapid prototyping, and iteration.",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                  </svg>
-                ),
-              },
-            ].map(({ title, desc, icon }) => (
+            {siteConfig.scale.cards.map(({ title, desc, icon }) => (
               <div key={title} style={{
                 background: "rgba(255,255,255,0.06)",
                 backdropFilter: "blur(24px)",
@@ -1164,7 +1120,7 @@ export default function DarkPage() {
                 display: "flex", flexDirection: "column", gap: 10,
               }}>
                 <div style={{ color: "#fff", flexShrink: 0 }}>
-                  {icon}
+                  {(() => { const Icon = SCALE_ICONS[icon]; return Icon ? <Icon size={22} weight="light" aria-hidden="true" /> : null; })()}
                 </div>
                 <h3 style={{
                   fontFamily: "var(--font-syne), sans-serif", fontSize: "0.9375rem",
@@ -1185,7 +1141,7 @@ export default function DarkPage() {
 
           </div>
 
-          {/* ── Logos, pinned to the bottom of the section ── */}
+          {/* ── Name rows, pinned to the bottom of the section ── */}
           <div style={{
             opacity: loadedSections.has(2) ? 1 : 0,
             transition: "opacity 0.4s ease 0.18s",
@@ -1194,23 +1150,16 @@ export default function DarkPage() {
             paddingTop: 32,
           }}>
 
-            {/* Clients row */}
-            <div role="group" aria-label="Clients" style={{ display: "flex", flexWrap: "wrap", gap: "16px 40px", alignItems: "center", justifyContent: "center", marginBottom: 28 }}>
-              {siteConfig.clients.map(name => (
-                <span key={name} style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "-0.01em", color: "rgba(255,255,255,0.5)", whiteSpace: "nowrap" }}>{name}</span>
-              ))}
-            </div>
-
-            {/* Employers row */}
-            <div role="group" aria-label="Companies I worked for" style={{ display: "flex", flexWrap: "wrap", gap: "16px 40px", alignItems: "center", justifyContent: "center" }}>
-              {siteConfig.employers.map(name => (
-                <span key={name}
-                  style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "-0.01em", color: "rgba(255,255,255,0.5)", whiteSpace: "nowrap", transition: "color 0.2s", cursor: "default" }}
-                  onMouseEnter={e => e.currentTarget.style.color = "rgba(255,255,255,0.85)"}
-                  onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}
-                >{name}</span>
-              ))}
-            </div>
+            {siteConfig.scale.rows.map(({ label, items }, i, arr) => (
+              <div key={label} role="group" aria-labelledby={`scale-row-${i}`} style={{ marginBottom: i < arr.length - 1 ? 28 : 0, textAlign: "center" }}>
+                <p id={`scale-row-${i}`} style={{ ...ov, fontSize: "0.5625rem", marginBottom: 14 }}>{label}</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 32px", alignItems: "center", justifyContent: "center" }}>
+                  {items.map(name => (
+                    <span key={name} style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "-0.01em", color: "rgba(255,255,255,0.5)" }}>{name}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
 
           </div>
 
@@ -1256,7 +1205,7 @@ export default function DarkPage() {
               Let&apos;s work{" "}<br aria-hidden="true" />together.
             </h2>
             <p style={{ ...bd, fontSize: "0.875rem", maxWidth: 400, marginBottom: 36 }}>
-              Open to new opportunities, collaborations, and challenging product design problems.
+              {siteConfig.contactLine}
             </p>
             <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 32 }}>
               <Button href="/contact" variant="light" size="md">Get in touch</Button>
@@ -1277,7 +1226,7 @@ export default function DarkPage() {
               ))}
             </div>
             <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
-              <span style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", color: C.textLow, letterSpacing: "0.06em" }}>WebGL · Three.js · GLSL</span>
+              <span style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", color: C.textLow, letterSpacing: "0.06em" }}>{siteConfig.skills.join(" · ")}</span>
             </div>
           </div>
 
