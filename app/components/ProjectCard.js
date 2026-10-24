@@ -10,7 +10,7 @@ const DEFAULT_GRADIENT = "linear-gradient(155deg, #020a18 0%, #071830 55%, #0a20
 // more"). Pass only the fields below; never a whole project object, which can
 // carry case study prose into the client bundle.
 // compact: cover and a smaller title only (case study "Explore more").
-export default function ProjectCard({ slug, href, title, client, year, summary, outcome, coverImage, coverGradient, headingLevel = 3, compact = false }) {
+export default function ProjectCard({ slug, href, title, client, year, coverImage, coverGradient, headingLevel = 3, compact = false }) {
   const [failed, setFailed] = useState(false);
   const Heading = `h${headingLevel}`;
 
@@ -44,12 +44,6 @@ export default function ProjectCard({ slug, href, title, client, year, summary, 
           </svg>
         </span>
       </div>
-      {!compact && (
-        <div className={styles.body}>
-          {summary && <p className={styles.summary}>{summary}</p>}
-          {outcome && <p className={styles.outcome}>{outcome}</p>}
-        </div>
-      )}
     </Link>
   );
 }

@@ -1,7 +1,7 @@
 /* The project card (home "Selected work", /portfolio, case study "Explore
-   more"). Four rows: cover, meta, title, body. Inside a grid parent the card
-   takes the parent's rows (subgrid), so labels, titles and summaries line up
-   across a row of cards whatever the title length. */
+   more"). Three rows: cover, meta, title. Inside a grid parent the card takes
+   the parent's rows (subgrid), so labels and titles line up across a row of
+   cards whatever the title length. */
 
 /* Card colours: change them here, every card follows. */
 .card {
@@ -12,11 +12,11 @@
 
   display: grid;
   grid-template-rows: subgrid;
-  grid-row: span 4;
+  grid-row: span 3;
   row-gap: 0;
   text-decoration: none;
   background: var(--card-bg);
-  border-radius: 32px;
+  border-radius: 12px;
   overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--card-border);
@@ -106,7 +106,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 24px;
+  padding: 0 24px 24px;
 }
 
 .title {
@@ -130,32 +130,10 @@
   transform: translate(3px, -3px);
 }
 
-.body {
-  padding: 0 24px 24px;
-}
-
-.summary {
-  margin: 10px 0 0;
-  font-family: var(--font-syne), sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--card-muted);
-  text-wrap: pretty;
-}
-
-.outcome {
-  margin: 10px 0 0;
-  font-family: var(--font-syne), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.45;
-  color: var(--card-text);
-}
-
 /* Compact: cover + title (two rows), smaller title */
 .compact {
   grid-row: span 2;
-  border-radius: 24px;
+  border-radius: 10px;
 }
 
 .compact .cover {
@@ -180,9 +158,8 @@
 @media (max-width: 768px) {
   .compact .titleRow { padding: 14px 16px 16px; }
   .meta { padding: 14px 14px 6px; }
-  .titleRow { padding: 0 14px; }
+  .titleRow { padding: 0 14px 16px; }
   .title { font-size: 1rem; }
-  .body { padding: 0 14px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
