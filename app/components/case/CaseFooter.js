@@ -23,8 +23,9 @@ export default function CaseFooter() {
     <footer data-site-footer className={`${styles.footer} ${styles.label}`}>
       <span>© {siteConfig.name} {new Date().getFullYear()}</span>
       <span className={styles.footerLinks}>
-        <ScrambleLink label="LinkedIn" href={siteConfig.linkedin} external />
-        <ScrambleLink label="Dribbble" href={siteConfig.dribbble} external />
+        {siteConfig.socials.map(({ label, href }) => (
+          <ScrambleLink key={label} label={label} href={href} external />
+        ))}
         <ScrambleLink label="Email" href={`mailto:${siteConfig.email}`} />
       </span>
       <ScrambleLink label="Back to top ↑" href="#top" onClick={toTop} />

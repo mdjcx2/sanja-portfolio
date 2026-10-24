@@ -8,23 +8,14 @@ export default function Footer() {
     {
       label: "Work",
       links: [
-        { name: "LinkedIn", href: siteConfig.linkedin, external: true },
-        { name: "Behance",  href: siteConfig.behance,  external: true },
-        { name: "Dribbble", href: siteConfig.dribbble,  external: true },
-      ],
-    },
-    {
-      label: "Process",
-      links: [
-        { name: "Double Diamond", href: "/process", external: false },
-        { name: "AI Workflows",   href: "/process", external: false },
+        ...siteConfig.socials.map(({ label, href }) => ({ name: label, href, external: true })),
       ],
     },
     {
       label: "Connect",
       links: [
         { name: "Email",       href: `mailto:${siteConfig.email}`, external: false },
-        { name: "Download CV", href: siteConfig.cvUrl,              external: false, download: true },
+        ...(siteConfig.cvUrl ? [{ name: "Download CV", href: siteConfig.cvUrl, external: false, download: true }] : []),
       ],
     },
   ];

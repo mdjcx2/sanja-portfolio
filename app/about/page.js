@@ -51,7 +51,7 @@ function TrailCarousel() {
       </div>
 
       {/* controls same pattern as work page carousel */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 16 }}>
+      {n > 1 && <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 16 }}>
         <Button variant="ghost" size="sm" onClick={() => go(-1)}>← prev</Button>
         <Button variant="ghost" size="sm" onClick={toggle} style={{ display: "flex", alignItems: "center", gap: 6 }}>
           {playing
@@ -64,7 +64,7 @@ function TrailCarousel() {
           {idx + 1} / {n}
         </span>
         <Button variant="ghost" size="sm" onClick={() => go(1)}>next →</Button>
-      </div>
+      </div>}
     </div>
   );
 }
@@ -276,7 +276,7 @@ export default function AboutPage() {
 
       </div>
 
-      {/* Away from the screen */}
+      {/* Photo + text (siteConfig.away) */}
       {siteConfig.away && (
       <div className="ab-trail">
         <div style={{ paddingTop: 48 }}>
@@ -285,7 +285,7 @@ export default function AboutPage() {
             letterSpacing: "0.14em", textTransform: "uppercase",
             color: "#fff", marginBottom: 32,
           }}>
-            Away from the screen
+            {siteConfig.away.label ?? "Away from the screen"}
           </p>
           <div className="ab-trail-grid">
 
@@ -314,6 +314,7 @@ export default function AboutPage() {
               </div>
 
               {/* Stats */}
+              {siteConfig.away.stats.length > 0 && (
               <div style={{ display: "flex", gap: 0 }}>
                 {siteConfig.away.stats.map(({ value, label, sub }, i, arr) => (
                   <div key={i} style={{
@@ -338,6 +339,7 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
+              )}
             </div>
 
           </div>

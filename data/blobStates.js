@@ -25,14 +25,6 @@ export const blobStates = [
     colorC: [0.0902, 0.0902, 0.0902],
   },
   {
-    px: -2.0900, py: -3.1400, scale: 2.7700,
-    camZ: 3.9200, rotX: 0.5700, rotY: 0.3200,
-    freq: 10.0000, amp: 0.0530, speed: 0.0500, fresnel: 3.4400,
-    colorA: [0.0000, 0.0000, 0.0000],
-    colorB: [0.0000, 0.0000, 0.0000],
-    colorC: [0.0510, 0.0510, 0.0510],
-  },
-  {
     px: 3.7100, py: -2.6100, scale: 3.1300,
     camZ: 3.5000, rotX: 0.4300, rotY: 1.2000,
     freq: 10.0000, amp: 0.1100, speed: 0.0500, fresnel: 1.6000,
@@ -40,8 +32,7 @@ export const blobStates = [
     colorB: [0.0000, 0.0000, 0.0000],
     colorC: [0.0510, 0.0510, 0.0510],
   },
-  // Sections 5 and 6 (About, Contact) — seeded from the previous pose so every
-  // one of the seven sections has its own state instead of clamping to the last.
+  // Spare poses (unused by the current four home sections).
   {
     px: 3.7100, py: -2.6100, scale: 3.1300,
     camZ: 3.5000, rotX: 0.4300, rotY: 1.2000,

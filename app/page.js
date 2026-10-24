@@ -10,7 +10,6 @@ import { Knob, ColorSwatch, Sep, tokens, hexToRgb } from "./experiment/ui";
 import CrystalLoader from "./components/CrystalLoader";
 import DarkNav from "./components/DarkNav";
 import Button from "./components/Button";
-import ProcessExplorer from "./components/ProcessExplorer";
 import ProjectCard from "./components/ProjectCard";
 import ScrambleTitle from "./components/ScrambleTitle";
 import { useTheme } from "./components/ThemeProvider";
@@ -51,10 +50,12 @@ const INITIAL_SECTIONS = blobStates.map(s => ({
   colorC: [...s.colorC],
 }));
 
-const SECTION_NAMES = ["Hero", "Work", "Scale", "Process", "Contact"];
-const SECTION_IDS   = ["hero", "work", "scale", "process", "contact"];
+const SECTION_NAMES = ["Hero", "Work", "Scale", "Contact"];
+const SECTION_IDS   = ["hero", "work", "scale", "contact"];
+// Index of the last section (Contact); the dots, arrow and fade-ins key off it.
+const LAST = SECTION_IDS.length - 1;
 
-// Fractional section index (2.5 = halfway from Scale to Process), measured from
+// Fractional section index (1.5 = halfway from Work to Scale), measured from
 // each section's real top so sections taller than the viewport still map cleanly.
 function sectionProgress() {
   const tops = SECTION_IDS.map(id => document.getElementById(id)?.offsetTop ?? 0);
@@ -465,7 +466,7 @@ export default function DarkPage() {
     const onScroll = () => {
       scrollRef.current = sectionProgress();
       setActiveSection(prev => {
-        const next = Math.min(Math.round(scrollRef.current), 4);
+        const next = Math.min(Math.round(scrollRef.current), LAST);
         return next === prev ? prev : next;
       });
     };
@@ -480,7 +481,7 @@ export default function DarkPage() {
 
   useEffect(() => {
     if (window.innerWidth <= 768) {
-      const all = new Set([0, 1, 2, 3, 4]);
+      const all = new Set(SECTION_IDS.map((_, i) => i));
       loadedSectionsRef.current = all;
       setLoadedSections(all);
       return;
@@ -495,7 +496,7 @@ export default function DarkPage() {
   }, [activeSection]);
 
   // Section-by-section wheel scrolling on desktop. A section taller than the
-  // screen (Process on short laptops) scrolls natively until its edge, then hands off.
+  // screen (Scale on short laptops) scrolls natively until its edge, then hands off.
   useEffect(() => {
     let locked = false;
     const onWheel = (e) => {
@@ -917,7 +918,7 @@ export default function DarkPage() {
 
         {/* Real dots */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", opacity: uiLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}>
-          {["Hero", "Work", "Scale", "Process", "Contact"].map((name, i) => (
+          {SECTION_NAMES.map((name, i) => (
             <NavTooltip key={i} label={name}>
               <button aria-label={`Go to ${name}`} aria-current={activeSection === i ? "true" : undefined} onClick={() => scrollToSection(i)} className="dp-navdot" style={{ background: "none", border: "none", cursor: "pointer", width: 44, minHeight: 24, padding: "4px 0", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div style={{
@@ -930,10 +931,10 @@ export default function DarkPage() {
           ))}
         </div>
         <div style={{ opacity: uiLoaded ? 1 : 0, transition: "opacity 0.4s ease" }}>
-          <NavTooltip label={activeSection < 4 ? ["Work", "Scale", "Process", "Contact"][activeSection] : "Back to top"}>
+          <NavTooltip label={activeSection < LAST ? SECTION_NAMES[activeSection + 1] : "Back to top"}>
             <button
-              aria-label={activeSection < 4 ? `Go to ${["Work", "Scale", "Process", "Contact"][activeSection]}` : "Back to top"}
-              onClick={() => activeSection < 4 ? scrollToSection(activeSection + 1) : scrollToSection(0)}
+              aria-label={activeSection < LAST ? `Go to ${SECTION_NAMES[activeSection + 1]}` : "Back to top"}
+              onClick={() => activeSection < LAST ? scrollToSection(activeSection + 1) : scrollToSection(0)}
               style={{
                 width: 36, height: 36, borderRadius: "50%",
                 border: "1px solid rgba(255,255,255,0.15)",
@@ -945,7 +946,7 @@ export default function DarkPage() {
               onMouseEnter={e => { e.currentTarget.style.borderColor = C.textMid; e.currentTarget.style.color = C.text; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = C.textFaint; e.currentTarget.style.color = C.textDim; }}
             >
-              {activeSection < 4 ? (
+              {activeSection < LAST ? (
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
                 </svg>
@@ -1216,33 +1217,6 @@ export default function DarkPage() {
         </div>
       </section>
 
-      {/* ── PROCESS ───────────────────────────────────────────── */}
-      <section id="process" className="dp-pos" style={{
-        minHeight: "100vh", display: "flex", flexDirection: "column",
-        justifyContent: "center", padding: "96px 64px",
-        position: "relative", zIndex: 5,
-      }}>
-        {/* Title outside the card */}
-        <div style={{ marginBottom: 18 }}>
-          <h2 style={{ ...hd, fontSize: "clamp(1.5rem, 2.8vw, 2.4rem)", lineHeight: 1.15, margin: 0 }}>
-            AI Native Design Process
-          </h2>
-        </div>
-
-        {/* Card container matches the rest of the homepage card pattern */}
-        <div style={{
-          background: "rgba(255,255,255,0.06)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          border: "1px solid rgba(255,255,255,0.09)",
-          borderRadius: 14,
-          padding: "28px 28px 24px",
-          overflow: "visible",
-        }}>
-          <ProcessExplorer />
-        </div>
-      </section>
-
       {/* ── FOOTER / CONTACT ──────────────────────────────────── */}
       <footer id="contact" className="dp-footer" style={{
         minHeight: "100vh", display: "flex", flexDirection: "column",
@@ -1254,7 +1228,7 @@ export default function DarkPage() {
           {/* Skeleton */}
           <div style={{
             position: "absolute", bottom: 0, left: 0, width: "100%",
-            opacity: loadedSections.has(4) ? 0 : 1,
+            opacity: loadedSections.has(LAST) ? 0 : 1,
             transition: "opacity 0.4s ease", pointerEvents: "none",
           }}>
             <div className="hs-sk" style={{ width: 88, height: 8, borderRadius: 2, marginBottom: 16 }} />
@@ -1276,7 +1250,7 @@ export default function DarkPage() {
           </div>
 
           {/* Real content */}
-          <div style={{ opacity: loadedSections.has(4) ? 1 : 0, transition: "opacity 0.4s ease" }}>
+          <div style={{ opacity: loadedSections.has(LAST) ? 1 : 0, transition: "opacity 0.4s ease" }}>
             <p style={{ ...ov, marginBottom: 16 }}>Contact</p>
             <h2 style={{ ...hd, fontSize: "clamp(2rem, 5vw, 4rem)", marginBottom: 12 }}>
               Let&apos;s work{" "}<br aria-hidden="true" />together.
@@ -1294,16 +1268,13 @@ export default function DarkPage() {
                 onMouseEnter={e => e.target.style.color = C.text}
                 onMouseLeave={e => e.target.style.color = C.textLow}
               >{siteConfig.email}</a>
-              <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer"
-                style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.textLow, textDecoration: "none", transition: "color 0.2s ease" }}
-                onMouseEnter={e => e.target.style.color = "rgba(0,210,255,0.85)"}
-                onMouseLeave={e => e.target.style.color = C.textLow}
-              >LinkedIn</a>
-              <a href={siteConfig.dribbble} target="_blank" rel="noopener noreferrer"
-                style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.textLow, textDecoration: "none", transition: "color 0.2s ease" }}
-                onMouseEnter={e => e.target.style.color = "rgba(0,210,255,0.85)"}
-                onMouseLeave={e => e.target.style.color = C.textLow}
-              >Dribbble</a>
+              {siteConfig.socials.map(({ label, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.textLow, textDecoration: "none", transition: "color 0.2s ease" }}
+                  onMouseEnter={e => e.target.style.color = "rgba(0,210,255,0.85)"}
+                  onMouseLeave={e => e.target.style.color = C.textLow}
+                >{label}</a>
+              ))}
             </div>
             <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
               <span style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "0.75rem", color: C.textLow, letterSpacing: "0.06em" }}>WebGL · Three.js · GLSL</span>

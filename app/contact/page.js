@@ -50,9 +50,7 @@ export default function ContactPage() {
 
           {[
             { label: "Email", value: email || "...", href: email ? `mailto:${email}` : null },
-            { label: "LinkedIn", value: "LinkedIn", href: siteConfig.linkedin, external: true },
-            { label: "Dribbble", value: "Dribbble", href: siteConfig.dribbble, external: true },
-            { label: "Behance", value: "Behance", href: siteConfig.behance, external: true },
+            ...siteConfig.socials.map(({ label, href }) => ({ label, value: label, href, external: true })),
             ...(siteConfig.cvUrl ? [{ label: "CV", value: "Download CV", href: siteConfig.cvUrl, download: true }] : []),
             { label: "Location", value: siteConfig.aboutLocation, href: null },
           ].map(({ label, value, href, external, download }) => (
