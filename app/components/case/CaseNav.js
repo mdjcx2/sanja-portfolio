@@ -17,6 +17,7 @@ import Logo from "../Logo";
 // Below 768px it opens the site's full-screen menu.
 const LINKS = [
   { label: "Work", href: "/portfolio", also: ["/work"] },
+  { label: "Exhibitions", href: "/exhibitions" },
   { label: "Publications", href: "/publications" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact", onClick: openContactFromClick },

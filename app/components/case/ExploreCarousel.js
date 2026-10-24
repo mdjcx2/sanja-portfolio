@@ -5,8 +5,10 @@ import styles from "./case.module.css";
 
 // "Explore more": a snap-scrolling row of the site's project cards.
 // Only cardProps() fields cross to the client component, never case prose.
-export default function ExploreCarousel({ slugs }) {
-  const cards = slugs.map((slug) => projects.find((p) => p.slug === slug && !p.draft)).filter(Boolean);
+// pool: where the slugs are looked up (default: projects; exhibitions pass
+// their own cards).
+export default function ExploreCarousel({ slugs, pool = projects }) {
+  const cards = slugs.map((slug) => pool.find((p) => p.slug === slug && !p.draft)).filter(Boolean);
   if (cards.length === 0) return null;
 
   return (

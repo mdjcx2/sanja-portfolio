@@ -9,17 +9,22 @@ const DARK_PAGES = [
   "/about",
   "/contact",
   "/publications",
+  "/exhibitions",
   "/projects/movingimage",
   "/map",
   "/design-system",
   "/demo/folder",
 ];
 
+// Pages whose sub-pages are case studies (light/dark case template, no blob).
+const INDEX_ONLY = new Set(["/exhibitions"]);
+
 // Per-page blob config all positioned right side (positive px)
 const PAGE_CONFIGS = {
   "/portfolio":           { px: 4.2, py:  0.8, scale: 3.0, camZ: 4.8, freq: 10.0, amp: 0.11, speed: 0.05, fresnel: 1.6 },
   "/about":               { px: 4.8, py: -0.4, scale: 2.6, camZ: 5.2, freq: 10.0, amp: 0.05, speed: 0.13, fresnel: 8.0 },
   "/contact":             { px: 5.0, py:  1.2, scale: 2.4, camZ: 5.5, freq: 10.0, amp: 0.11, speed: 0.05, fresnel: 1.6 },
+  "/exhibitions":         { px: 4.2, py:  0.8, scale: 3.0, camZ: 4.8, freq: 10.0, amp: 0.11, speed: 0.05, fresnel: 1.6 },
   "/publications":        { px: 4.6, py:  0.3, scale: 2.8, camZ: 5.0, freq: 10.0, amp: 0.07, speed: 0.08, fresnel: 5.0 },
   "/projects/movingimage":{ px: 4.0, py:  0.2, scale: 3.2, camZ: 4.5, freq: 10.0, amp: 0.11, speed: 0.05, fresnel: 3.4 },
   "/map":                 { px: 4.5, py:  0.0, scale: 2.8, camZ: 5.0, freq: 10.0, amp: 0.11, speed: 0.05, fresnel: 1.6 },
@@ -155,7 +160,7 @@ export default function BlobBackground() {
   const mountRef = useRef(null);
   const materialRef = useRef(null);
   const { preset } = useBlobPreset();
-  const active = DARK_PAGES.some(p => pathname === p || pathname.startsWith(p + "/"));
+  const active = DARK_PAGES.some(p => pathname === p || (pathname.startsWith(p + "/") && !INDEX_ONLY.has(p)));
 
   useEffect(() => {
     if (!active) return;

@@ -77,6 +77,7 @@ export default function Nav() {
           </Link>
 
           <div className="nav-links nav-links-desktop">
+            <Link href="/exhibitions" className="nav-link">Exhibitions</Link>
             <Link href="/publications" className="nav-link">Publications</Link>
             <Link href="/about"   className="nav-link">About</Link>
             <Link href="/work"    className="nav-link">Selected Work</Link>
@@ -153,6 +154,7 @@ export default function Nav() {
       <div className={`nav-drawer${open ? " nav-drawer-open" : ""}`} aria-hidden={!open}>
         <div className="nav-drawer-inner">
           <Link href="/"        className="nav-drawer-link nav-drawer-home">{siteConfig.wordmark}</Link>
+          <Link href="/exhibitions" className="nav-drawer-link">Exhibitions</Link>
           <Link href="/publications" className="nav-drawer-link">Publications</Link>
           <Link href="/about"   className="nav-drawer-link">About</Link>
           <Link href="/work"    className="nav-drawer-link">Selected Work</Link>

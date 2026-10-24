@@ -12,6 +12,7 @@ import { siteConfig } from "../../data/siteConfig.js";
 export const MENU_LINKS = [
   ["Home",    "/",          "Start here"],
   ["Work",    "/portfolio", "Selected case studies"],
+  ["Exhibitions", "/exhibitions", "Installations and workshops"],
   ["Publications", "/publications", "Interviews and features"],
   ["About",   "/about",     "Background"],
   ["Contact", "/contact",   "Let's talk"],
