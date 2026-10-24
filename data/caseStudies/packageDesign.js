@@ -1,0 +1,73 @@
+// Package Design: from sanjadevic.com/portfolio_page/package-design, images in the same
+// order. TODO(Sanja): the numbered alt texts could name each piece.
+
+const DIR = "/images/package-design";
+
+const images = [
+  { src: `${DIR}/01.jpg`, width: 1000, height: 590, alt: "Package design 1 of 44" },
+  { src: `${DIR}/02.jpg`, width: 1000, height: 566, alt: "Package design 2 of 44" },
+  { src: `${DIR}/03.jpg`, width: 561, height: 428, alt: "Package design 3 of 44" },
+  { src: `${DIR}/04.jpg`, width: 1600, height: 1200, alt: "Funky Fresh juice bottles with Sanja Devic’s labels, lined up on a wooden table" },
+  { src: `${DIR}/05.jpg`, width: 1600, height: 1200, alt: "Package design 5 of 44" },
+  { src: `${DIR}/06.jpg`, width: 1200, height: 777, alt: "Package design 6 of 44" },
+  { src: `${DIR}/07.jpg`, width: 1200, height: 585, alt: "Package design 7 of 44" },
+  { src: `${DIR}/08.jpg`, width: 995, height: 1200, alt: "Package design 8 of 44" },
+  { src: `${DIR}/09.jpg`, width: 1506, height: 1200, alt: "Package design 9 of 44" },
+  { src: `${DIR}/10.jpg`, width: 1200, height: 805, alt: "Package design 10 of 44" },
+  { src: `${DIR}/11.jpg`, width: 600, height: 313, alt: "Package design 11 of 44" },
+  { src: `${DIR}/12.jpg`, width: 600, height: 313, alt: "Package design 12 of 44" },
+  { src: `${DIR}/13.jpg`, width: 600, height: 313, alt: "Package design 13 of 44" },
+  { src: `${DIR}/14.jpg`, width: 600, height: 313, alt: "Package design 14 of 44" },
+  { src: `${DIR}/15.jpg`, width: 600, height: 313, alt: "Package design 15 of 44" },
+  { src: `${DIR}/16.jpg`, width: 600, height: 313, alt: "Package design 16 of 44" },
+  { src: `${DIR}/17.jpg`, width: 600, height: 313, alt: "Package design 17 of 44" },
+  { src: `${DIR}/18.jpg`, width: 600, height: 313, alt: "Package design 18 of 44" },
+  { src: `${DIR}/19.jpg`, width: 600, height: 313, alt: "Package design 19 of 44" },
+  { src: `${DIR}/20.jpg`, width: 1200, height: 554, alt: "Package design 20 of 44" },
+  { src: `${DIR}/21.jpg`, width: 2099, height: 1000, alt: "Package design 21 of 44" },
+  { src: `${DIR}/22.jpg`, width: 1901, height: 800, alt: "Package design 22 of 44" },
+  { src: `${DIR}/23.jpg`, width: 1585, height: 800, alt: "Package design 23 of 44" },
+  { src: `${DIR}/24.jpg`, width: 1209, height: 500, alt: "Package design 24 of 44" },
+  { src: `${DIR}/25.jpg`, width: 600, height: 313, alt: "Package design 25 of 44" },
+  { src: `${DIR}/26.jpg`, width: 600, height: 313, alt: "Package design 26 of 44" },
+  { src: `${DIR}/27.jpg`, width: 600, height: 313, alt: "Package design 27 of 44" },
+  { src: `${DIR}/28.jpg`, width: 600, height: 313, alt: "Package design 28 of 44" },
+  { src: `${DIR}/29.jpg`, width: 600, height: 313, alt: "Package design 29 of 44" },
+  { src: `${DIR}/30.jpg`, width: 600, height: 313, alt: "Package design 30 of 44" },
+  { src: `${DIR}/31.jpg`, width: 1166, height: 699, alt: "Package design 31 of 44" },
+  { src: `${DIR}/32.jpg`, width: 1200, height: 728, alt: "Package design 32 of 44" },
+  { src: `${DIR}/33.jpg`, width: 1746, height: 900, alt: "Package design 33 of 44" },
+  { src: `${DIR}/34.jpg`, width: 1200, height: 977, alt: "Package design 34 of 44" },
+  { src: `${DIR}/35.jpg`, width: 1636, height: 800, alt: "Package design 35 of 44" },
+  { src: `${DIR}/36.jpg`, width: 1367, height: 1100, alt: "Package design 36 of 44" },
+  { src: `${DIR}/37.jpg`, width: 1855, height: 400, alt: "Package design 37 of 44" },
+  { src: `${DIR}/38.jpg`, width: 1593, height: 400, alt: "Package design 38 of 44" },
+  { src: `${DIR}/39.jpg`, width: 1503, height: 800, alt: "Package design 39 of 44" },
+  { src: `${DIR}/40.jpg`, width: 689, height: 1300, alt: "Package design 40 of 44" },
+  { src: `${DIR}/41.jpg`, width: 1264, height: 715, alt: "Package design 41 of 44" },
+  { src: `${DIR}/42.jpg`, width: 1048, height: 739, alt: "Package design 42 of 44" },
+  { src: `${DIR}/43.jpg`, width: 1056, height: 747, alt: "Package design 43 of 44" },
+  { src: `${DIR}/44.jpg`, width: 1076, height: 747, alt: "Package design 44 of 44" },
+];
+
+export const packageDesign = {
+  slug: "package-design",
+  eyebrow: "Packaging",
+  title: "Package Design",
+  lede: "A selection of package designs, created for clients all over the world.",
+  cover: { src: `${DIR}/04.jpg`, width: 1600, height: 1200, alt: "Funky Fresh juice bottles with Sanja Devic's labels, lined up on a wooden table", position: "center" },
+  meta: [
+    { label: "Role", value: "Package designer" },
+    { label: "Clients", value: "Around the world" },
+    { label: "Pieces", value: "44 images" },
+  ],
+  explore: ["metalac-cookware", "logo-designs"],
+  sections: [
+    {
+      id: "work",
+      label: "Selected packaging",
+      title: "Selected packaging",
+      blocks: [{ type: "gallery", layout: "stack", items: images }],
+    },
+  ],
+};

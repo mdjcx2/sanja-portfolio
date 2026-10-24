@@ -14,7 +14,7 @@ export const sampleProject = {
     { label: "Impact", value: "Placeholder impact" },
     { label: "Shipped", value: "2025" },
   ],
-  explore: ["logo-designs", "project-two"],
+  explore: ["logo-designs", "package-design"],
   sections: [
     {
       id: "problem",

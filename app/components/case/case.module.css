@@ -966,3 +966,17 @@
   width: 100%;
   height: auto;
 }
+
+.galleryStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: var(--case-media-gap) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.galleryStack .galleryItem {
+  width: 100%;
+}

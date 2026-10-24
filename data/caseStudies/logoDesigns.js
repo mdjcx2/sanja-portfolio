@@ -26,7 +26,7 @@ export const logoDesigns = {
     { label: "Years", value: "2006 – 2022" },
     { label: "Logos", value: String(logos.length) },
   ],
-  explore: ["sample-project", "project-two"],
+  explore: ["package-design", "metalac-cookware", "ui-design"],
   sections: [
     {
       id: "logos",

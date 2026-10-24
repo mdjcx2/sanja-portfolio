@@ -2,8 +2,7 @@
 // case study "Explore more"). Each slug with a file in data/caseStudies/
 // gets a full page at /work/<slug>.
 //
-// TODO(Sanja): placeholders. Add a cover image in public/images/<slug>/ and
-// point coverImage at it; until then the card shows the title on a gradient.
+// Content from sanjadevic.com/portfolio, in her order after Logo Designs.
 
 export const projects = [
   {
@@ -18,36 +17,36 @@ export const projects = [
     coverGradient: "linear-gradient(155deg, #3a0022 0%, #6b0040 55%, #ff0095 100%)",
   },
   {
-    slug: "sample-project",
+    slug: "package-design",
     featured: true,
     group: "selected",
-    title: "Sample Project",
-    client: "Client name",
-    year: "2025",
-    summary: "One-sentence summary of the project and its outcome.",
-    coverImage: null,
-    coverGradient: "linear-gradient(155deg, #020a18 0%, #071830 55%, #0a2040 100%)",
-  },
-  {
-    slug: "project-two",
-    featured: true,
-    group: "selected",
-    title: "Project Two",
-    client: "Client name",
-    year: "2024",
-    summary: "One-sentence summary of the project and its outcome.",
-    coverImage: null,
+    title: "Package Design",
+    client: "Clients worldwide",
+    year: null,
+    summary: "A selection of package designs, created for clients all over the world.",
+    coverImage: "/images/package-design/04.jpg",
     coverGradient: "linear-gradient(155deg, #030d06 0%, #092010 55%, #0d2a15 100%)",
   },
   {
-    slug: "project-three",
+    slug: "ui-design",
     featured: true,
-    group: "more",
-    title: "Project Three",
-    client: "Client name",
-    year: "2023",
-    summary: "One-sentence summary of the project and its outcome.",
-    coverImage: null,
+    group: "selected",
+    title: "UI Design",
+    client: "Clients worldwide",
+    year: null,
+    summary: "A selection of app designs, created for clients all over the world.",
+    coverImage: "/images/ui-design/01.jpg",
+    coverGradient: "linear-gradient(155deg, #020a18 0%, #071830 55%, #0a2040 100%)",
+  },
+  {
+    slug: "metalac-cookware",
+    featured: true,
+    group: "selected",
+    title: "Metalac Cookware",
+    client: "Metalac d.o.o.",
+    year: null,
+    summary: "Cookware design for Metalac, exhibited at Ambiente in Frankfurt.",
+    coverImage: "/images/metalac-cookware/05.jpg",
     coverGradient: "linear-gradient(155deg, #100520 0%, #1a0835 55%, #220b45 100%)",
   },
 ];
@@ -55,5 +54,4 @@ export const projects = [
 // Section headings on /work, in order. Projects are placed by their `group`.
 export const projectGroups = [
   { key: "selected", label: "Selected work" },
-  { key: "more", label: "More projects" },
 ];
