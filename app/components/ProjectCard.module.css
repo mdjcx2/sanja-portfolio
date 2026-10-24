@@ -48,6 +48,13 @@
   object-position: top;
   display: block;
   z-index: 1;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slight zoom on the cover; .cover clips it to the card */
+.card:hover .coverImg,
+.card:focus-visible .coverImg {
+  transform: scale(1.05);
 }
 
 .fallback {
@@ -163,6 +170,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card, .arrow { transition: none; }
+  .card, .arrow, .coverImg { transition: none; }
+  .card:hover .coverImg, .card:focus-visible .coverImg { transform: none; }
   .card:hover { transform: none; }
 }
