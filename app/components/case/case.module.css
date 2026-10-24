@@ -1,0 +1,932 @@
+/* Case study template. Uses the site tokens (--bg, --text, --accent…), which
+   flip under html.dark, so every block works in both themes.
+   Spec: docs/superpowers/specs/2026-10-23-case-study-template.md */
+
+/* The case page background (pure black, no dither) lives in globals.css
+   under [data-case-page], so it covers the older /work pages too. */
+
+.page {
+  --case-col: 848px;
+  --case-gutter: 24px;
+  --case-media-gap: 32px;
+  --case-radius: 12px;
+  --case-mono: var(--font-mono), ui-monospace, monospace;
+  position: relative;
+  z-index: 2;
+  color: var(--text);
+  /* No fill: the site background (blob + dither, set from the nav cog) shows through */
+}
+
+@media (min-width: 768px) {
+  .page {
+    --case-gutter: 40px;
+    --case-media-gap: 48px;
+    --case-radius: 16px;
+  }
+}
+
+.column {
+  max-width: calc(var(--case-col) + 2 * var(--case-gutter));
+  margin: 0 auto;
+  padding: 0 var(--case-gutter);
+}
+
+/* ── Cover ─────────────────────────────────────────────── */
+
+.cover {
+  position: relative;
+  height: min(100svh, 720px);
+  overflow: hidden;
+}
+
+.coverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transform-origin: center top;
+  will-change: transform;
+}
+
+/* Product-shot covers sit under the nav (96px desktop, 80px phones) at the
+   image's own proportions, capped at 720px (trimmed evenly top and bottom),
+   so the space around the product stays as cropped in the file. */
+.cover[data-below-nav="true"] {
+  height: auto;
+  padding-top: 96px;
+}
+
+.cover[data-below-nav="true"] .coverImg {
+  display: block;
+  height: auto;
+  max-height: 720px;
+}
+
+/* The image's own bottom margin is the gap before the title */
+.cover[data-below-nav="true"] + .header {
+  padding-top: 0;
+}
+
+@media (max-width: 767px) {
+  .cover[data-below-nav="true"] {
+    padding-top: 80px; /* the phone nav bar's height */
+  }
+}
+
+/* Shade under the nav so its light ink reads on bright photos too */
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 160px;
+  background: linear-gradient(rgb(0 0 0 / 0.45), transparent);
+  pointer-events: none;
+}
+
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+/* ── Header ────────────────────────────────────────────── */
+
+.header {
+  /* Vertical only: the side gutter comes from .column */
+  padding-top: 48px;
+  padding-bottom: 16px;
+}
+
+.eyebrow,
+.label,
+.caption {
+  font-family: var(--case-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.title {
+  margin: 12px 0 16px;
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.9px;
+  font-weight: 600;
+}
+
+.lede {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 17px;
+  line-height: 27.6px;
+  color: var(--text-muted);
+}
+
+.divider {
+  margin: 32px 0;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+}
+
+.meta dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── Sections ──────────────────────────────────────────── */
+
+.section {
+  /* Vertical only: the side gutter comes from .column */
+  padding-top: 64px;
+  padding-bottom: 64px;
+  outline: none; /* focused by the contents drawer, not a control */
+  scroll-margin-top: 80px;
+}
+
+.h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.h3 {
+  margin: 32px 0 12px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.text p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--text-muted);
+}
+
+.list {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--text-muted);
+}
+
+.list li + li {
+  margin-top: 8px;
+}
+
+/* ── Media ─────────────────────────────────────────────── */
+
+.figure {
+  margin: var(--case-media-gap) 0;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--case-radius);
+  background: var(--bg-card);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.frame img,
+.frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.videoToggle {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  border: 0;
+  background: rgb(0 0 0 / 0.13);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.videoToggle:hover,
+.videoToggle:focus-visible,
+.videoToggle[data-paused="true"] {
+  opacity: 1;
+}
+
+.videoIcon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(8px);
+}
+
+/* ── Metrics strip ─────────────────────────────────────── */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  margin: var(--case-media-gap) 0;
+  overflow: hidden;
+  border-radius: var(--case-radius);
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.metric {
+  padding: 24px;
+  background: var(--bg-card);
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+/* ── Reveal ────────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Cards ─────────────────────────────────────────────── */
+
+.cards {
+  display: grid;
+  gap: 12px;
+  margin: var(--case-media-gap) 0;
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(var(--cards-cols, 3), minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.card {
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  text-align: center;
+}
+
+.cardIcon {
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+/* ── Process ───────────────────────────────────────────── */
+
+.process {
+  list-style: none;
+  margin: var(--case-media-gap) 0;
+  padding: 0;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 48px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--text-subtle);
+  opacity: 0.5;
+}
+
+.stepChip {
+  flex: 0 0 40px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.stepBody {
+  padding-top: 8px;
+}
+
+.stepTitle {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.stepText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ── Compare ───────────────────────────────────────────── */
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(var(--compare-cols, 2), minmax(0, 1fr));
+  gap: 8px;
+  margin: var(--case-media-gap) 0;
+}
+
+.compareItem {
+  margin: 0;
+}
+
+/* ── Results table ─────────────────────────────────────── */
+
+.results {
+  margin: var(--case-media-gap) 0;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--bg-card);
+}
+
+@media (min-width: 768px) {
+  .results {
+    padding: 32px;
+  }
+}
+
+.resultsRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(3, 40px);
+  gap: 16px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+@media (min-width: 510px) {
+  .resultsRow {
+    grid-template-columns: minmax(0, 1fr) repeat(3, 50px);
+    gap: 24px;
+  }
+}
+
+.resultsHead {
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 0;
+  font-family: var(--case-mono);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.resultsHead span + span {
+  text-align: center;
+}
+
+.resultsTask {
+  font-family: var(--case-mono);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.resultsRow[data-highlight="problem"] {
+  --row-tint: #d64545;
+  background: color-mix(in srgb, var(--row-tint) 14%, transparent);
+}
+
+.resultsRow[data-highlight="fixed"] {
+  --row-tint: #2f9e5b;
+  background: color-mix(in srgb, var(--row-tint) 14%, transparent);
+}
+
+.gauge {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+
+.gaugeTrack,
+.gaugeFill {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.gaugeTrack {
+  stroke: color-mix(in srgb, var(--text) 15%, transparent);
+}
+
+.gaugeFill {
+  stroke: var(--row-tint, var(--text));
+  stroke-linecap: round;
+}
+
+.gaugeValue {
+  font-family: var(--case-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* ── Hotspot ───────────────────────────────────────────── */
+
+.hotspotAlt {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.hotspotAlt[data-open="true"] {
+  opacity: 1;
+}
+
+.hotspot {
+  position: absolute;
+  aspect-ratio: 1;
+  min-width: 32px; /* WCAG 2.5.8 target size on narrow screens */
+  translate: -50% -50%;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  cursor: pointer;
+  animation: hotspotPulse 1.8s ease-in-out infinite;
+}
+
+.hotspot[aria-pressed="true"] {
+  animation: none;
+  opacity: 0.6;
+}
+
+.hotspot:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+@keyframes hotspotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+  50% { box-shadow: 0 0 0 10px transparent; }
+}
+
+/* ── Chips ─────────────────────────────────────────────── */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chips + div .frame {
+  display: grid;
+}
+
+.chipMedia {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.chipMedia[data-active="true"] {
+  opacity: 1;
+}
+
+/* ── Shortcuts ─────────────────────────────────────────── */
+
+.shortcuts {
+  display: grid;
+  gap: 8px;
+  margin: var(--case-media-gap) 0;
+}
+
+@media (min-width: 768px) {
+  .shortcuts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.shortcut {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--bg-card);
+}
+
+.shortcut dt {
+  flex: 0 0 96px;
+}
+
+.shortcut dd {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.kbd {
+  font-family: var(--case-mono);
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--text) 15%, transparent);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspot { animation: none; }
+  .hotspotAlt, .chipMedia { transition: none; }
+}
+
+/* ── Contents drawer + paginator ───────────────────────── */
+/* Both float over the page, bottom left (contents) and bottom right
+   (paginator). The buttons are the site's DS Button (tonal); the wrappers
+   add a frosted backing so they stay legible over images. --case-tabbar is
+   DarkNav's phone tab bar height, so the contents button sits above it. */
+
+.tocButton,
+.pagerArrow {
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.25);
+}
+
+.tocButton {
+  position: fixed;
+  left: 16px;
+  bottom: calc(16px + var(--case-tabbar, 0px));
+  z-index: 150;
+  display: flex;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.tocButton[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .tocButton {
+    left: 40px;
+    bottom: 40px;
+  }
+}
+
+.pager {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 150;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: opacity 400ms ease;
+}
+
+.pager[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .pager { display: flex; }
+}
+
+.pagerDots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 20px hit area around a 5px dot; the current one stretches into a bar */
+.pagerDot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 14px;
+  border-radius: 4px;
+  transition: height 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pagerDot::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--text) 55%, transparent);
+  transition: height 350ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 200ms ease;
+}
+
+.pagerDot:hover::before {
+  background: var(--text);
+}
+
+.pagerDot[aria-current="location"] {
+  height: 26px;
+}
+
+.pagerDot[aria-current="location"]::before {
+  height: 18px;
+  background: rgb(var(--blob-r, 0), var(--blob-g, 210), var(--blob-b, 255));
+}
+
+.pagerDot:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(var(--blob-r, 0), var(--blob-g, 210), var(--blob-b, 255));
+}
+
+/* Section name, to the left of the dot or arrow on hover / focus */
+.pagerTip,
+.pagerArrow::after {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-family: var(--case-mono, var(--font-mono), ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(4px, -50%);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.pagerArrow {
+  position: relative;
+  display: flex;
+}
+
+.pagerArrow::after {
+  content: attr(data-label);
+}
+
+.pagerDot:hover .pagerTip,
+.pagerDot:focus-visible .pagerTip,
+.pagerArrow:hover::after,
+.pagerArrow:has(:focus-visible)::after {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.tocBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 210; /* above the site nav (200) */
+  background: color-mix(in srgb, var(--bg) 50%, transparent);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.tocBackdrop[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toc {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 211;
+  /* Rendered outside .page, so it needs its own copy of the mono stack */
+  --case-mono: var(--font-mono), ui-monospace, monospace;
+  width: min(288px, 85vw);
+  background: var(--bg);
+  border-right: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  transform: translateX(-100%);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toc[data-open="true"] {
+  transform: none;
+}
+
+.tocHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 12px;
+}
+
+.tocLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: var(--case-mono);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.tocLink::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.tocLink:hover,
+.tocLink:focus-visible {
+  color: var(--text);
+}
+
+.tocLink[aria-current="location"] {
+  color: var(--text);
+  background: var(--bg-card);
+}
+
+/* ── Explore more ──────────────────────────────────────── */
+
+.explore {
+  /* A sideways-scrolling grid of compact ProjectCards (cover + title rows,
+     subgrid), so titles line up across the row */
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: 82%;
+  column-gap: 16px;
+  margin: 0;
+  /* Room for the cards' hover lift and shadow inside the scroll box */
+  padding: 8px 0 32px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+@media (min-width: 768px) {
+  .explore {
+    grid-auto-columns: calc((100% - 2 * 20px) / 3);
+    column-gap: 20px;
+  }
+}
+
+.explore::-webkit-scrollbar {
+  display: none;
+}
+
+.explore:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.exploreItem {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tocButton, .tocBackdrop, .toc, .pager, .pagerDot, .pagerDot::before, .pagerTip, .pagerArrow::after { transition: none; }
+}
+
+/* ── Footer ────────────────────────────────────────────── */
+
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 48px 24px 32px;
+  border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  /* Solid: the footer sits on the page colour (black in dark mode), not the background effect */
+  background: var(--nav-bg, var(--bg));
+  --case-mono: var(--font-mono), ui-monospace, monospace;
+  /* Reachable on pages that snap section by section (scroll-snap-type: mandatory) */
+  scroll-snap-align: end;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding: 48px 4vw 32px;
+  }
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.footer a:hover,
+.footer a:focus-visible {
+  color: var(--text);
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+}

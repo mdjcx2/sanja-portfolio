@@ -1,0 +1,200 @@
+/* Case study nav. Desktop layout modelled on graceguo.io (96px tall, 4vw side
+   padding, links 32px apart at 70% ink); type is the site's own. Mobile uses
+   the site's FullscreenMenu. Site tokens only, so it follows html.dark. */
+
+.bar {
+  --mono: var(--font-mono), ui-monospace, monospace;
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 24px; /* 24px matches the content gutter on narrow screens */
+  --ink: var(--text);
+  color: var(--ink);
+}
+
+.bar {
+  transition: opacity 0.4s ease;
+}
+
+.bar[data-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bar[data-on-cover="true"] {
+  --ink: #fafafa;
+}
+
+/* While the full-screen menu is open, the bar sits above it (z 998) so the
+   Close button stays reachable, in the menu's light ink */
+.bar[data-menu-open="true"] {
+  z-index: 999;
+  --ink: #fff;
+}
+
+.bar[data-menu-open="true"] .scrim {
+  opacity: 0;
+}
+
+/* The hidden real word sets the width; the scrambled text is laid over it
+   (absolute), so wider random characters can't push the other links. */
+.scramble {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.scramble > span:not(.scrambleHold) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.scrambleHold {
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .bar {
+    min-height: 96px; /* the reference's bar height */
+    padding: 28px 4vw;
+  }
+}
+
+/* Fades in once the page scrolls, so links stay readable over content */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(var(--nav-bg, var(--bg)) 40%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.scrim[data-on="true"] {
+  opacity: 1;
+}
+
+.wordmarkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.wordmark {
+  margin-right: auto;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink, var(--text));
+  text-decoration: none;
+}
+
+.links {
+  display: none;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .links {
+    display: flex;
+  }
+}
+
+/* The site's nav-link type (Syne, small caps-style), with the reference's
+   70% → 100% ink and scramble on hover */
+.link {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 300ms ease;
+}
+
+.link:hover,
+.link:focus-visible,
+.link[aria-current="page"] {
+  color: var(--ink);
+}
+
+.link:focus-visible,
+.menuButton:focus-visible,
+.wordmark:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* The site cog. 40px like the reference's right-hand control */
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  cursor: pointer;
+  transition: color 300ms ease, background 300ms ease, border-color 300ms ease;
+}
+
+.iconButton:hover,
+.iconButton[aria-expanded="true"] {
+  color: var(--ink);
+}
+
+.iconButton[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  border-color: color-mix(in srgb, var(--ink) 20%, transparent);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.menuButton {
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim, .link, .iconButton { transition: none; }
+}

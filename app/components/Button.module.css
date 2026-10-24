@@ -1,0 +1,174 @@
+/* Button — the site's button sheet (shown on /design-system).
+   Five styles: filled · raised · outline · tonal · ghost, plus `link` for
+   inline text buttons. Each has default, hover, focus-visible, active
+   (pressed) and disabled. One accent drives them all: the dark portfolio's
+   accent, set from the cog's mood (BlobPresetContext.applyAccent), cyan by
+   default. data-force="hover|focus|active" shows a state statically, for the
+   sheet. A wrapper can re-theme a group by overriding --btn-accent. */
+
+.btn {
+  --btn-accent: rgb(var(--blob-r, 0), var(--blob-g, 210), var(--blob-b, 255));
+  --btn-accent-deep: color-mix(in oklab, var(--btn-accent) 86%, black);
+  --btn-accent-pressed: color-mix(in oklab, var(--btn-accent) 74%, black);
+  /* Text on the bold styles: the accent is bright, so dark text */
+  --btn-on-accent: #020408;
+  --btn-quiet: color-mix(in srgb, var(--text) 9%, transparent);
+  --btn-quiet-hover: color-mix(in srgb, var(--text) 18%, transparent);
+  --btn-tint: color-mix(in srgb, var(--btn-accent) 16%, transparent);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--btn-h);
+  padding: 0 var(--btn-px);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--btn-accent);
+  font-family: var(--font-body);
+  font-size: var(--btn-fs);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Soft ease-in-out on every state change; the press release eases back slower */
+  --btn-ease: cubic-bezier(0.45, 0, 0.25, 1);
+  transition:
+    background-color 260ms var(--btn-ease),
+    border-color 260ms var(--btn-ease),
+    color 260ms var(--btn-ease),
+    box-shadow 300ms var(--btn-ease),
+    transform 280ms var(--btn-ease);
+}
+
+.btn:focus-visible {
+  outline: none;
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────────── */
+.sm { --btn-h: 32px; --btn-px: 14px; --btn-fs: 0.8125rem; --btn-icon: 14px; }
+.md { --btn-h: 40px; --btn-px: 18px; --btn-fs: 0.875rem;  --btn-icon: 16px; }
+.lg { --btn-h: 48px; --btn-px: 22px; --btn-fs: 0.9375rem; --btn-icon: 18px; }
+
+.iconOnly { width: var(--btn-h); padding: 0; }
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--btn-icon);
+  height: var(--btn-icon);
+}
+.icon > svg { width: 100%; height: 100%; }
+
+/* ── Styles ────────────────────────────────────────────────────────────────── */
+
+/* Filled, and Raised (filled plus a light top edge) */
+.filled,
+.raised {
+  background: var(--btn-accent);
+  color: var(--btn-on-accent);
+}
+.raised {
+  border-color: color-mix(in srgb, var(--btn-accent) 70%, white);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22);
+}
+.filled:hover:not(:disabled), .filled[data-force="hover"],
+.raised:hover:not(:disabled), .raised[data-force="hover"] {
+  background: var(--btn-accent-deep);
+}
+.filled:active:not(:disabled), .filled[data-force="active"],
+.raised:active:not(:disabled), .raised[data-force="active"] {
+  background: var(--btn-accent-pressed);
+}
+
+/* Outline */
+.outline { border-color: var(--btn-accent); }
+.outline:hover:not(:disabled), .outline[data-force="hover"] { background: var(--btn-quiet); }
+
+/* Tonal */
+.tonal { background: var(--btn-quiet); }
+.tonal:hover:not(:disabled), .tonal[data-force="hover"] {
+  background: linear-gradient(var(--btn-quiet-hover), var(--btn-quiet));
+}
+
+/* Ghost */
+.ghost:hover:not(:disabled), .ghost[data-force="hover"] { background: var(--btn-quiet); }
+
+.outline:active:not(:disabled), .outline[data-force="active"],
+.tonal:active:not(:disabled), .tonal[data-force="active"],
+.ghost:active:not(:disabled), .ghost[data-force="active"] {
+  background: var(--btn-tint);
+}
+
+/* Pressed: every style dips slightly */
+.btn:active:not(:disabled):not(.link),
+.btn[data-force="active"] {
+  transform: scale(0.97);
+  /* Press in quickly so the click still feels immediate */
+  transition-duration: 120ms, 120ms, 120ms, 120ms, 90ms;
+}
+
+/* Focus: ring with a page-coloured gap on the bold styles, a direct 2px ring
+   on the quiet ones */
+.filled:focus-visible, .filled[data-force="focus"],
+.raised:focus-visible, .raised[data-force="focus"],
+.outline:focus-visible, .outline[data-force="focus"] {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--btn-accent);
+}
+.tonal:focus-visible, .tonal[data-force="focus"],
+.ghost:focus-visible, .ghost[data-force="focus"] {
+  box-shadow: 0 0 0 2px var(--btn-accent);
+}
+
+/* Disabled */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Link: inline text button, underline is the affordance */
+.link {
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  color: var(--text);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--text) 35%, transparent);
+}
+.link:hover:not(:disabled) {
+  text-decoration-color: var(--btn-accent);
+  text-decoration-thickness: 2px;
+}
+.link:focus-visible {
+  box-shadow: 0 0 0 2px var(--btn-accent);
+}
+.link.iconOnly { width: auto; }
+
+/* ── Group ─────────────────────────────────────────────────────────────────── */
+.group {
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+.group > .btn { border-radius: 0; }
+.group > .btn:not(:first-child) { margin-left: -1px; }
+.group > .btn:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.group > .btn:last-child  { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+.group > .btn:hover,
+.group > .btn:focus-visible { z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:active:not(:disabled):not(.link), .btn[data-force="active"] { transform: none; transition: none; }
+}
